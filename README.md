@@ -108,9 +108,10 @@ Mở nút bánh răng trên dashboard:
 2. Dán cùng giá trị `CONTROL_TOKEN`.
 3. Nhấn **Lưu cấu hình**.
 
-Dashboard cache `/status` trong 60 giây. Lambda cache `DescribeInstances` trong
-15 giây trên execution environment đang warm. Nút **Làm mới** luôn bỏ qua cache
-trình duyệt.
+Dashboard chỉ gọi `/status` khi có client mở trang, bấm **Làm mới**, hoặc tab
+đang visible đến chu kỳ refresh; tab ẩn không poll Lambda. Dashboard cache
+`/status` trong 60 giây. Lambda cache `DescribeInstances` trong 15 giây trên
+execution environment đang warm. Nút **Làm mới** luôn bỏ qua cache trình duyệt.
 
 `/status` trả thêm `publicIp`, `publicDns`, `privateIp`; dashboard ưu tiên
 `publicIp` để hiển thị địa chỉ IPv4 dùng connect Minecraft. `players` hiện là

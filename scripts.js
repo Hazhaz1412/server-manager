@@ -531,7 +531,16 @@ document.addEventListener("keydown", (event) => {
     if (!elements.settingsModal.hidden) closeSettings();
 });
 
+function refreshVisibleStatus() {
+    if (document.hidden) return;
+    updateStatus({ silent: true });
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) updateStatus({ silent: true });
+});
+
 updateTokenUi();
 renderStatus("loading");
 updateStatus();
-window.setInterval(() => updateStatus({ silent: true }), REFRESH_INTERVAL);
+window.setInterval(refreshVisibleStatus, REFRESH_INTERVAL);
