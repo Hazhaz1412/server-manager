@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b120d">
+    <title>BlockOps - Minecraft Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-glow glow-one"></div>
+    <div class="page-glow glow-two"></div>
+    <div class="noise"></div>
+
+    <main class="shell">
+        <header class="topbar">
+            <a class="brand" href="#" aria-label="BlockOps home">
+                <span class="brand-mark" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </span>
+                <span>
+                    <strong>BLOCKOPS</strong>
+                    <small>SERVER CONSOLE</small>
+                </span>
+            </a>
+
+            <div class="topbar-actions">
+                <span class="connection-pill" id="connectionPill">
+                    <span class="connection-dot"></span>
+                    <span id="connectionText">Đang kết nối</span>
+                </span>
+                <button class="icon-button" id="settingsButton" type="button" aria-label="Cấu hình API" title="Cấu hình API">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"/>
+                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.42 1.42-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V20h-2v-.09A1.7 1.7 0 0 0 12.38 18a1.7 1.7 0 0 0-1.88.34l-.06.06-1.42-1.42.06-.06A1.7 1.7 0 0 0 9.42 15a1.7 1.7 0 0 0-1.55-1.03H7.8v-2h.09a1.7 1.7 0 0 0 1.55-1.03A1.7 1.7 0 0 0 9.1 9.06L9.04 9l1.42-1.42.06.06A1.7 1.7 0 0 0 12.4 8a1.7 1.7 0 0 0 1.03-1.55V6.4h2v.09A1.7 1.7 0 0 0 16.46 8a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.42 1.42-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.55 1.03H21v2h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div>
+                <p class="eyebrow">MINECRAFT SERVER</p>
+                <h1>Trung tâm điều khiển</h1>
+                <p class="hero-copy">Theo dõi và quản lý máy chủ của bạn tại một nơi.</p>
+            </div>
+            <button class="refresh-button" id="refreshButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6v5h-5M4 18v-5h5M6.1 9A7 7 0 0 1 18 6l2 5M4 13l2 5a7 7 0 0 0 11.9-3"/>
+                </svg>
+                Làm mới
+            </button>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="server-card">
+                <div class="card-heading">
+                    <div>
+                        <p class="card-label">TRẠNG THÁI MÁY CHỦ</p>
+                        <div class="status-line">
+                            <span class="status-orb is-loading" id="statusOrb"></span>
+                            <h2 id="serverStatus">Đang tải...</h2>
+                        </div>
+                    </div>
+                    <span class="edition-badge">JAVA EDITION</span>
+                </div>
+
+                <div class="server-visual" aria-hidden="true">
+                    <div class="block block-grass">
+                        <span class="grass-top"></span>
+                        <span class="dirt-pixel p1"></span>
+                        <span class="dirt-pixel p2"></span>
+                        <span class="dirt-pixel p3"></span>
+                        <span class="dirt-pixel p4"></span>
+                    </div>
+                    <div class="block-shadow"></div>
+                </div>
+
+                <div class="server-address">
+                    <div>
+                        <span>ĐỊA CHỈ MÁY CHỦ</span>
+                        <strong id="serverAddress">Chưa có dữ liệu</strong>
+                    </div>
+                    <button class="copy-button" id="copyButton" type="button" aria-label="Sao chép địa chỉ server">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="8" y="8" width="11" height="11" rx="2"/>
+                            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>
+                        </svg>
+                        Sao chép
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat">
+                        <span>NGƯỜI CHƠI</span>
+                        <strong id="playerCount">-- / --</strong>
+                    </div>
+                    <div class="stat">
+                        <span>THỜI GIAN CHẠY</span>
+                        <strong id="uptime">--</strong>
+                    </div>
+                    <div class="stat">
+                        <span>PHIÊN BẢN</span>
+                        <strong id="serverVersion">--</strong>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="control-card">
+                <div class="card-heading compact">
+                    <div>
+                        <p class="card-label">ĐIỀU KHIỂN</p>
+                        <h2>Thao tác nhanh</h2>
+                    </div>
+                </div>
+
+                <div class="control-list">
+                    <button class="control-button start" id="startButton" type="button">
+                        <span class="control-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>
+                        </span>
+                        <span><strong>Bật máy chủ</strong><small>Khởi chạy instance và server</small></span>
+                        <span class="action-arrow">→</span>
+                    </button>
+
+                    <button class="control-button stop" id="stopButton" type="button">
+                        <span class="control-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+                        </span>
+                        <span><strong>Tắt máy chủ</strong><small>Dừng server an toàn</small></span>
+                        <span class="action-arrow">→</span>
+                    </button>
+
+                    <button class="control-button restart-instance" id="restartInstanceButton" type="button">
+                        <span class="control-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5M19 11a7 7 0 1 0-.8 5"/></svg>
+                        </span>
+                        <span><strong>Restart EC2</strong><small>Khởi động lại toàn bộ instance</small></span>
+                        <span class="action-arrow">→</span>
+                    </button>
+
+                    <button class="control-button restart-server" id="restartServerButton" type="button">
+                        <span class="control-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5M19 11a7 7 0 1 0-.8 5"/><path d="M9 9h6v6H9z"/></svg>
+                        </span>
+                        <span><strong>Restart Minecraft</strong><small>Chỉ restart service game</small></span>
+                        <span class="action-arrow">→</span>
+                    </button>
+                </div>
+
+                <div class="last-sync">
+                    <span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+                        Cập nhật lần cuối
+                    </span>
+                    <strong id="lastUpdate">--:--:--</strong>
+                </div>
+            </aside>
+        </section>
+
+        <section class="activity-card">
+            <div class="activity-heading">
+                <div>
+                    <p class="card-label">HOẠT ĐỘNG GẦN ĐÂY</p>
+                    <h2>Nhật ký thao tác</h2>
+                </div>
+                <button class="text-button" id="clearLogButton" type="button">Xóa nhật ký</button>
+            </div>
+            <div class="activity-list" id="activityList" aria-live="polite">
+                <div class="empty-activity">Chưa có thao tác nào trong phiên này.</div>
+            </div>
+        </section>
+
+        <footer>
+            <span>BLOCKOPS CONSOLE</span>
+            <span>Cache trạng thái 60 giây</span>
+        </footer>
+    </main>
+
+    <div class="modal-backdrop" id="confirmModal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <span class="modal-icon" id="confirmIcon"></span>
+            <h2 id="confirmTitle">Xác nhận thao tác</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <button class="secondary-button" id="cancelAction" type="button">Hủy</button>
+                <button class="primary-button" id="confirmAction" type="button">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="settingsModal" hidden>
+        <div class="modal settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+            <div class="settings-heading">
+                <div>
+                    <p class="card-label">CẤU HÌNH</p>
+                    <h2 id="settingsTitle">API Gateway</h2>
+                </div>
+                <button class="icon-button" id="closeSettings" type="button" aria-label="Đóng">×</button>
+            </div>
+            <label class="field-label" for="apiUrlInput">Base URL</label>
+            <input id="apiUrlInput" class="text-input" type="url" placeholder="https://example.execute-api.region.amazonaws.com">
+            <p class="field-help">URL được lưu trên trình duyệt này. Không thêm dấu <code>/</code> ở cuối.</p>
+            <label class="field-label token-label" for="apiTokenInput">Access token</label>
+            <input id="apiTokenInput" class="text-input" type="password" autocomplete="off" placeholder="Token cấu hình trong Lambda">
+            <p class="field-help">Được gửi qua header <code>x-control-token</code>. Không hard-code token vào mã nguồn.</p>
+            <div class="modal-actions">
+                <button class="secondary-button" id="resetApiUrl" type="button">Đặt lại</button>
+                <button class="primary-button" id="saveApiUrl" type="button">Lưu cấu hình</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

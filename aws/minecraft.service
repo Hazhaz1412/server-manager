@@ -1,0 +1,19 @@
+[Unit]
+Description=Minecraft Java Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft
+ExecStart=/usr/bin/java -Xms2G -Xmx2G -jar server.jar nogui
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=90
+KillSignal=SIGINT
+SuccessExitStatus=0 130 143
+
+[Install]
+WantedBy=multi-user.target

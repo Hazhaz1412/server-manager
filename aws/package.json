@@ -1,0 +1,17 @@
+{
+  "name": "blockops-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "check": "node --check index.mjs",
+    "package": "npm ci --omit=dev && zip -r blockops-lambda.zip index.mjs package.json node_modules"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ec2": "latest",
+    "@aws-sdk/client-ssm": "latest"
+  }
+}
