@@ -86,6 +86,7 @@ button {
 
 .topbar,
 .hero,
+.auth-panel,
 .card-heading,
 .activity-heading,
 .settings-heading,
@@ -238,6 +239,34 @@ h1 {
     margin-top: 12px;
     color: var(--muted);
     font-size: .94rem;
+}
+
+.auth-panel {
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 18px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .025);
+}
+
+.auth-panel h2 {
+    margin-top: 6px;
+    font-size: 1rem;
+}
+
+.auth-copy {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: .7rem;
+}
+
+.auth-form {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) auto auto;
+    align-items: center;
+    gap: 8px;
 }
 
 .refresh-button,
@@ -915,6 +944,15 @@ footer {
     .hero-copy {
         max-width: 260px;
         line-height: 1.5;
+    }
+
+    .auth-panel {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .auth-form {
+        grid-template-columns: 1fr;
     }
 
     .refresh-button {

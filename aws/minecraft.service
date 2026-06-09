@@ -1,14 +1,13 @@
 [Unit]
-Description=Minecraft Java Server
+Description=Minecraft Forge Server
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=minecraft
-Group=minecraft
-WorkingDirectory=/opt/minecraft
-ExecStart=/usr/bin/java -Xms2G -Xmx2G -jar server.jar nogui
+User=ubuntu
+WorkingDirectory=/home/ubuntu
+ExecStart=/bin/bash /home/ubuntu/run.sh nogui
 Restart=on-failure
 RestartSec=10
 TimeoutStopSec=90

@@ -52,6 +52,19 @@
             </button>
         </section>
 
+        <section class="auth-panel" aria-labelledby="authTitle">
+            <div>
+                <p class="card-label">AUTH KEY</p>
+                <h2 id="authTitle">x-control-token</h2>
+                <p class="auth-copy" id="tokenStateText">Chưa lưu key trên trình duyệt này.</p>
+            </div>
+            <div class="auth-form">
+                <input id="authTokenInput" class="text-input" type="password" autocomplete="off" placeholder="Nhập x-control-token">
+                <button class="secondary-button" id="clearTokenButton" type="button">Xóa key</button>
+                <button class="primary-button" id="saveTokenButton" type="button">Lưu key</button>
+            </div>
+        </section>
+
         <section class="dashboard-grid">
             <article class="server-card">
                 <div class="card-heading">
@@ -203,7 +216,7 @@
             <p class="field-help">URL được lưu trên trình duyệt này. Không thêm dấu <code>/</code> ở cuối.</p>
             <label class="field-label token-label" for="apiTokenInput">Access token</label>
             <input id="apiTokenInput" class="text-input" type="password" autocomplete="off" placeholder="Token cấu hình trong Lambda">
-            <p class="field-help">Được gửi qua header <code>x-control-token</code>. Không hard-code token vào mã nguồn.</p>
+            <p class="field-help">Được lưu vĩnh viễn bằng <code>localStorage</code> của trình duyệt và gửi qua header <code>x-control-token</code>.</p>
             <div class="modal-actions">
                 <button class="secondary-button" id="resetApiUrl" type="button">Đặt lại</button>
                 <button class="primary-button" id="saveApiUrl" type="button">Lưu cấu hình</button>

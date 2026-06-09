@@ -1,4 +1,4 @@
-const DEFAULT_API_URL = "YOUR_API_GATEWAY";
+const DEFAULT_API_URL = "https://d6xp33kbupxbyqofskkbx4tosm0wcdxj.lambda-url.ap-southeast-1.on.aws/";
 const REFRESH_INTERVAL = 30000;
 const STATUS_CACHE_TTL = 60000;
 const STATUS_CACHE_KEY = "blockops_status_cache";
@@ -28,6 +28,10 @@ const elements = {
     restartInstanceButton: document.getElementById("restartInstanceButton"),
     restartServerButton: document.getElementById("restartServerButton"),
     copyButton: document.getElementById("copyButton"),
+    authTokenInput: document.getElementById("authTokenInput"),
+    saveTokenButton: document.getElementById("saveTokenButton"),
+    clearTokenButton: document.getElementById("clearTokenButton"),
+    tokenStateText: document.getElementById("tokenStateText"),
     activityList: document.getElementById("activityList"),
     clearLogButton: document.getElementById("clearLogButton"),
     confirmModal: document.getElementById("confirmModal"),
@@ -68,6 +72,19 @@ function normalizeApiUrl(url) {
 
 function hasConfiguredApi() {
     return state.apiUrl && state.apiUrl !== DEFAULT_API_URL;
+}
+
+function hasSavedToken() {
+    return Boolean(state.apiToken);
+}
+
+function updateTokenUi() {
+    elements.authTokenInput.value = state.apiToken;
+    elements.apiTokenInput.value = state.apiToken;
+    elements.tokenStateText.textContent = hasSavedToken()
+        ? "Key đã được lưu vĩnh viễn trên trình duyệt này."
+        : "Chưa lưu key trên trình duyệt này.";
+    elements.clearTokenButton.disabled = !hasSavedToken();
 }
 
 async function apiRequest(path, options = {}) {
@@ -435,10 +452,34 @@ function saveSettings() {
     } else {
         localStorage.removeItem("blockops_api_token");
     }
+    updateTokenUi();
     clearStatusCache();
     closeSettings();
     showToast("Đã lưu cấu hình API Gateway.");
     updateStatus({ force: true });
+}
+
+function saveToken() {
+    const value = elements.authTokenInput.value.trim();
+    if (!value) {
+        showToast("Hãy nhập x-control-token trước khi lưu.", "error");
+        return;
+    }
+
+    state.apiToken = value;
+    localStorage.setItem("blockops_api_token", value);
+    updateTokenUi();
+    clearStatusCache();
+    showToast("Đã lưu x-control-token trên trình duyệt.");
+    updateStatus({ force: true });
+}
+
+function clearToken() {
+    state.apiToken = "";
+    localStorage.removeItem("blockops_api_token");
+    updateTokenUi();
+    clearStatusCache();
+    showToast("Đã xóa x-control-token.", "error");
 }
 
 function resetSettings() {
@@ -448,7 +489,7 @@ function resetSettings() {
     state.apiUrl = DEFAULT_API_URL;
     state.apiToken = "";
     elements.apiUrlInput.value = "";
-    elements.apiTokenInput.value = "";
+    updateTokenUi();
     closeSettings();
     renderStatus("error");
     updateConnection("is-error", "Chưa cấu hình API");
@@ -463,6 +504,11 @@ elements.restartServerButton.addEventListener("click", () => openConfirmation("r
 elements.confirmAction.addEventListener("click", executeAction);
 elements.cancelAction.addEventListener("click", closeConfirmation);
 elements.copyButton.addEventListener("click", copyAddress);
+elements.saveTokenButton.addEventListener("click", saveToken);
+elements.clearTokenButton.addEventListener("click", clearToken);
+elements.authTokenInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") saveToken();
+});
 elements.clearLogButton.addEventListener("click", () => {
     state.activities = [];
     renderActivities();
@@ -485,6 +531,7 @@ document.addEventListener("keydown", (event) => {
     if (!elements.settingsModal.hidden) closeSettings();
 });
 
+updateTokenUi();
 renderStatus("loading");
 updateStatus();
 window.setInterval(() => updateStatus({ silent: true }), REFRESH_INTERVAL);
