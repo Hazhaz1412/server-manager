@@ -1,0 +1,33 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadInstanceState",
+      "Effect": "Allow",
+      "Action": "ec2:DescribeInstances",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ControlMinecraftInstance",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances",
+        "ec2:RebootInstances"
+      ],
+      "Resource": "arn:aws:ec2:AWS_REGION:AWS_ACCOUNT_ID:instance/INSTANCE_ID"
+    },
+    {
+      "Sid": "UseRunShellScriptDocument",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": "arn:aws:ssm:AWS_REGION::document/AWS-RunShellScript"
+    },
+    {
+      "Sid": "RestartMinecraftOnInstance",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": "arn:aws:ec2:AWS_REGION:AWS_ACCOUNT_ID:instance/INSTANCE_ID"
+    }
+  ]
+}
