@@ -112,6 +112,10 @@ Dashboard cache `/status` trong 60 giây. Lambda cache `DescribeInstances` trong
 15 giây trên execution environment đang warm. Nút **Làm mới** luôn bỏ qua cache
 trình duyệt.
 
+`/status` trả thêm `publicIp`, `publicDns`, `privateIp`; dashboard ưu tiên
+`publicIp` để hiển thị địa chỉ IPv4 dùng connect Minecraft. `players` hiện là
+placeholder `-- / --`, chưa query trực tiếp Minecraft server.
+
 ## Bảo mật
 
 `CONTROL_TOKEN` phù hợp cho dashboard cá nhân nhưng vẫn là bearer token lưu trong

@@ -128,11 +128,14 @@ const getInstanceStatus = async () => {
 
   const instance = await describeInstance();
   const status = instance.State?.Name || "unknown";
+  const publicIp = instance.PublicIpAddress || "";
+  const publicDns = instance.PublicDnsName || "";
+  const privateIp = instance.PrivateIpAddress || "";
   const address =
     SERVER_ADDRESS ||
-    instance.PublicDnsName ||
-    instance.PublicIpAddress ||
-    instance.PrivateIpAddress ||
+    publicIp ||
+    publicDns ||
+    privateIp ||
     "";
   const launchTime = instance.LaunchTime?.getTime();
   const uptimeSeconds =
@@ -144,6 +147,9 @@ const getInstanceStatus = async () => {
     status,
     instanceId: INSTANCE_ID,
     address,
+    publicIp,
+    publicDns,
+    privateIp,
     port: MINECRAFT_PORT,
     version: MINECRAFT_VERSION,
     uptimeSeconds,

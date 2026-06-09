@@ -182,7 +182,7 @@ function renderStatus(status) {
 }
 
 function renderServerData(data) {
-    const address = pick(data, ["address", "serverAddress", "ip", "publicIp", "public_ip"], "Chưa có dữ liệu");
+    const address = pick(data, ["publicIp", "public_ip", "ip", "address", "serverAddress"], "Chưa có dữ liệu");
     const port = pick(data, ["port", "serverPort"]);
     const players = pick(data, ["players", "onlinePlayers", "playerCount"], "--");
     const maxPlayers = pick(data, ["maxPlayers", "max_players", "playerLimit"], "--");
